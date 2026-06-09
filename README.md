@@ -3,8 +3,7 @@
 Ein kleines **3D-Lernspiel für Technical Sales**: Lauf in der Ego-Perspektive durch einen Park, erkenne den **DISG-Kundentyp** an dem, was die Leute sagen, und antworte typgerecht (Platinregel). Je besser du den Typ triffst, desto mehr verkaufst du – und am 🎡 Glücksrad kannst du dein Glück versuchen.
 
 ## ▶️ Jetzt spielen
-👉 **https://DEIN-NUTZERNAME.github.io/verkaufswelt/**
-*(Diesen Link nach dem Einrichten von GitHub Pages hier eintragen.)*
+👉 **https://colinhoffmann793.github.io/verkaufswelt/**
 
 ## 🕹️ Steuerung
 - **Klick ins Bild** → mit der **Maus** umsehen (**Esc** gibt die Maus frei)
