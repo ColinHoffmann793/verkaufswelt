@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Verkaufswelt 3D – Erkenne den Kundentyp</title>
+<title>Sales World 3D – Recognize the Customer Type</title>
 <style>
   :root{
     --red:#C0392B; --yellow:#D4A017; --green:#27AE60; --blue:#2471A3;
@@ -175,22 +175,22 @@
 </head>
 <body>
 
-<div id="loading">Lade Verkaufswelt …</div>
+<div id="loading">Loading Sales World …</div>
 
 <!-- HUD -->
 <div class="hud">
-  <div class="chip money">💰 Konto: <b><span id="money">0</span></b> <span class="euro">€</span></div>
-  <div class="chip">🤝 Verkauft: <b id="progress">0/8</b></div>
-  <div class="chip streak" id="streakChip">🔥 Serie: <b id="streak">0</b></div>
+  <div class="chip money">💰 Account: <b><span id="money">0</span></b> <span class="euro">€</span></div>
+  <div class="chip">🤝 Sold: <b id="progress">0/8</b></div>
+  <div class="chip streak" id="streakChip">🔥 Streak: <b id="streak">0</b></div>
 </div>
 <div class="topright">
-  <button class="iconbtn" id="manualBtn">📖 Spielanleitung <span class="diffTag" id="diffTag">Leicht</span></button>
+  <button class="iconbtn" id="manualBtn">📖 How to Play <span class="diffTag" id="diffTag">Easy</span></button>
 </div>
 
 <div id="labels"></div>
 <div id="crosshair"></div>
-<button id="walkBtn">⬆<br>Gehen</button>
-<div class="bottomhint" id="bottomhint">Lade …</div>
+<button id="walkBtn">⬆<br>Go</button>
+<div class="bottomhint" id="bottomhint">Loading …</div>
 
 <!-- CHAT-DIALOG -->
 <div class="dlgWrap" id="dlgWrap">
@@ -209,77 +209,76 @@
 <!-- SPIELANLEITUNG (auto beim Laden) -->
 <div class="overlay" id="manual">
   <div class="modal">
-    <h2><span class="em">📖</span> Spielanleitung</h2>
-    <p class="lead">Willkommen in der <b>Verkaufswelt</b>! Du bist Vertriebsprofi und gehst in der <b>Ego-Perspektive</b> durch einen <b>Park</b> voller Leute. Erkenne, <b>welcher Typ</b> jeder Kunde ist – und antworte so, wie <i>er</i> behandelt werden will (Platinregel).</p>
+    <h2><span class="em">📖</span> How to Play</h2>
+    <p class="lead">Welcome to <b>Sales World</b>! You're a sales professional walking in <b>first person</b> through a <b>park</b> full of people. Recognize <b>which type</b> each customer is – and respond the way <i>they</i> want to be treated (the Platinum Rule).</p>
 
     <ol class="steps">
-      <li><b>Steuerung:</b> <b>Klick ins Bild</b> → mit der <b>Maus</b> umsehen, mit <b>WASD</b> gehen (<b>Esc</b> gibt die Maus frei). Am Handy: <b>ziehen</b> zum Umsehen, <b>Gehen</b>-Knopf zum Laufen. Geh zu einer Person und drücke <b>E</b>.</li>
-      <li>Die Person sagt etwas. Daran erkennst du ihren <b>Charaktertyp</b>. Von den <b>vier Antworten</b> ist <b style="color:#5fe39a">eine voll passend</b>, <b style="color:#f4cf5a">eine halb passend</b> (Nebentyp → halbe Punkte, weniger Geld), die <b>übrigen daneben</b>.</li>
-      <li>Ihr unterhaltet euch wie im Chat (3 Aussagen aus einem <b>wechselnden Pool</b> – jedes Gespräch ist etwas anders). <b>Passt keine</b> einzige Antwort, kauft die Person <b>nicht</b>.</li>
-      <li>Je mehr passende Antworten, desto <b>mehr Geld</b> – es fliegt auf dein <b>Konto oben links</b>. Verkäufe in Folge bauen eine <b>🔥 Serie</b> mit Bonus auf.</li>
-      <li>Am <b>🎡 Glücksrad</b> im Park kannst du für <b>100 €</b> drehen und Geld oder einen <b>Serien-Boost</b> gewinnen.</li>
+      <li><b>Controls:</b> <b>Click into the scene</b> → look around with the <b>mouse</b>, move with <b>WASD</b> (<b>Esc</b> releases the mouse). On mobile: <b>drag</b> to look, the <b>Go</b> button to walk. Walk up to a person and press <b>E</b>.</li>
+      <li>The person says something. From it you recognize their <b>character type</b>. Of the <b>four answers</b>, <b style="color:#5fe39a">one is a full fit</b>, <b style="color:#f4cf5a">one is a half fit</b> (secondary type → half points, less money), the <b>other two are off</b>.</li>
+      <li>You chat (3 statements drawn from a <b>changing pool</b> – every conversation differs a little). If <b>none</b> of your answers fit, the person <b>won't buy</b>.</li>
+      <li>The more fitting answers, the <b>more money</b> – it flies to your <b>account, top-left</b>. Consecutive sales build a <b>🔥 streak</b> with a bonus.</li>
     </ol>
 
-    <p class="lead" style="margin:14px 0 6px">Schwierigkeit wählen:</p>
+    <p class="lead" style="margin:14px 0 6px">Choose difficulty:</p>
     <div class="diffPick" id="diffPick"></div>
-    <p class="diffNote">Hinweis: Ein Wechsel der Schwierigkeit setzt Konto, Serie und alle Kunden zurück.</p>
+    <p class="diffNote">Note: changing the difficulty resets the account, streak and all customers.</p>
 
-    <p class="lead" style="margin:14px 0 6px">Die vier Kundentypen (DISG):</p>
+    <p class="lead" style="margin:14px 0 6px">The four customer types (DISC):</p>
     <div class="typeGrid">
-      <div class="tcard D"><div class="tt">🔴 ROT · Dominant</div>
-        <div class="td">Bestimmend, fordernd, ungeduldig. Spricht schnell, will Ergebnisse &amp; Zahlen.</div>
-        <div class="ts"><b>Verkaufen:</b> klar &amp; direkt, zum Punkt kommen.</div></div>
-      <div class="tcard I"><div class="tt">🟡 GELB · Initiativ</div>
-        <div class="td">Offen, gesellig, emotional. Liebt Referenzen, Anerkennung, das große Bild.</div>
-        <div class="ts"><b>Verkaufen:</b> Beziehung &amp; Begeisterung.</div></div>
-      <div class="tcard S"><div class="tt">🟢 GRÜN · Stetig</div>
-        <div class="td">Geduldig, harmoniebedürftig, risikoscheu. Will Sicherheit &amp; gute Zusammenarbeit.</div>
-        <div class="ts"><b>Verkaufen:</b> Vertrauen aufbauen, nicht drängen.</div></div>
-      <div class="tcard G"><div class="tt">🔵 BLAU · Gewissenhaft</div>
-        <div class="td">Analytisch, kritisch, reserviert. Will Fakten, Belege, schriftliche Unterlagen.</div>
-        <div class="ts"><b>Verkaufen:</b> Daten &amp; Genauigkeit.</div></div>
+      <div class="tcard D"><div class="tt">🔴 RED · Dominant</div>
+        <div class="td">Assertive, demanding, impatient. Speaks fast, wants results &amp; numbers.</div>
+        <div class="ts"><b>Selling:</b> clear &amp; direct, get to the point.</div></div>
+      <div class="tcard I"><div class="tt">🟡 YELLOW · Influencing</div>
+        <div class="td">Open, sociable, emotional. Loves references, recognition, the big picture.</div>
+        <div class="ts"><b>Selling:</b> relationship &amp; enthusiasm.</div></div>
+      <div class="tcard S"><div class="tt">🟢 GREEN · Steady</div>
+        <div class="td">Patient, harmony-seeking, risk-averse. Wants security &amp; good cooperation.</div>
+        <div class="ts"><b>Selling:</b> build trust, don't push.</div></div>
+      <div class="tcard G"><div class="tt">🔵 BLUE · Conscientious</div>
+        <div class="td">Analytical, critical, reserved. Wants facts, evidence, written documents.</div>
+        <div class="ts"><b>Selling:</b> data &amp; accuracy.</div></div>
     </div>
-    <p class="tip">Die Antworten sind <b>nicht</b> nach Typ beschriftet – du musst selbst erkennen, welche passt. Der wahre Typ wird erst am Gesprächsende verraten.</p>
-    <button class="primary" id="manualClose">Los geht's →</button>
+    <p class="tip">The answers are <b>not</b> labeled by type – you must judge which one fits. The true type is revealed only at the end of the conversation.</p>
+    <button class="primary" id="manualClose">Let's go →</button>
   </div>
 </div>
 
 <!-- ERGEBNIS -->
 <div class="overlay" id="sale">
   <div class="modal">
-    <h2 id="saleTitle">Verkauft! 🤝</h2>
+    <h2 id="saleTitle">Sold! 🤝</h2>
     <div class="center" style="margin:6px 0 2px"><span class="pill" id="salePill"></span></div>
     <div class="saleAmount" id="saleAmount">+0 €</div>
     <div class="saleHits" id="saleHits"></div>
     <div class="breakdown" id="saleBreakdown"></div>
     <div class="reveal" id="saleReveal"></div>
     <div class="tip" id="saleTip"></div>
-    <button class="primary" id="saleClose">Weiter →</button>
+    <button class="primary" id="saleClose">Continue →</button>
   </div>
 </div>
 
 <!-- WIN -->
 <div class="overlay" id="win">
   <div class="modal center">
-    <h2><span class="em">🏆</span> Alle Kunden überzeugt!</h2>
+    <h2><span class="em">🏆</span> All customers won over!</h2>
     <div class="saleAmount" id="winTotal">0 €</div>
     <p id="winLine"></p>
-    <button class="primary" id="winAgain">Nochmal spielen</button>
+    <button class="primary" id="winAgain">Play again</button>
   </div>
 </div>
 
-<!-- GLÜCKSRAD -->
+<!-- WHEEL OF FORTUNE -->
 <div class="overlay" id="wheel">
   <div class="modal center">
-    <h2>🎡 Glücksrad</h2>
-    <p class="lead">Ein Dreh kostet <b>100 €</b> – gewinne Geld oder einen <b>🔥 Serien-Boost</b>!</p>
+    <h2>🎡 Wheel of Fortune</h2>
+    <p class="lead">One spin costs <b>100 €</b> – win money or a <b>🔥 streak boost</b>!</p>
     <div class="wheelWrap">
       <div id="wheelPtr"></div>
       <canvas id="wheelCanvas" width="300" height="300"></canvas>
     </div>
-    <div id="wheelResult" class="wheelResult">Bereit zum Drehen.</div>
-    <button class="primary" id="wheelSpin">Drehen (100 €)</button>
-    <button class="ghost" id="wheelClose">Schließen</button>
+    <div id="wheelResult" class="wheelResult">Ready to spin.</div>
+    <button class="primary" id="wheelSpin">Spin (100 €)</button>
+    <button class="ghost" id="wheelClose">Close</button>
   </div>
 </div>
 
@@ -297,42 +296,42 @@
    VERKAUFSWELT 3D – Prototyp (Park-Edition)
    ============================================================ */
 const $=id=>document.getElementById(id);
-const fmt=x=>x.toLocaleString("de-DE");
+const fmt=x=>x.toLocaleString("en-US");
 
 /* ---------- Typen ---------- */
 const TYPES = {
-  D:{name:"Dominant", label:"🔴 ROT · Dominant",  color:"#C0392B",
-     sell:"Klar & direkt, zum Punkt kommen, Zahlen & Ergebnisse, schnelle Entscheidung.",
-     observe:"Sieht dir fest und herausfordernd in die Augen, spricht schnell und bestimmt, lässt dich kaum ausreden – und schaut immer wieder auf die Uhr.",
-     good:["Gut. So redet man mit mir.","Genau – Tempo gefällt mir.","Ergebnisorientiert. Sehr gut."],
-     bad:["Kommen Sie zum Punkt – meine Zeit läuft.","Zu viel Gerede. Was bringt's mir?","Lassen Sie die Umwege."],
-     noSale:"Das bringt mir gar nichts. Ende der Diskussion – auf Wiedersehen."},
-  I:{name:"Initiativ", label:"🟡 GELB · Initiativ", color:"#D4A017",
-     sell:"Beziehung & Begeisterung, Referenzen, das große Bild, persönliche Wärme.",
-     observe:"Strahlt, redet viel und lebhaft mit großen Gesten, springt von Thema zu Thema und erzählt gleich von gemeinsamen Bekannten.",
-     good:["Ja! Genau das wollte ich hören!","Oh, das klingt aufregend!","Herrlich – genau mein Ding!"],
-     bad:["Hm … klingt etwas langweilig.","Oh je, ziemlich trocken.","Das holt mich nicht ab."],
-     noSale:"Ach … irgendwie springt der Funke nicht über. Lassen wir's lieber."},
-  S:{name:"Stetig", label:"🟢 GRÜN · Stetig", color:"#27AE60",
-     sell:"Vertrauen aufbauen, Sicherheit & Garantien, kein Druck, persönlich begleiten.",
-     observe:"Wirkt freundlich und etwas zurückhaltend, spricht ruhig und warm, stellt viele Fragen und nennt dich schnell beim Vornamen.",
-     good:["Das beruhigt mich.","Schön, das gibt mir Sicherheit.","So fühlt sich das gut an."],
-     bad:["Oh … das geht mir zu schnell.","Das macht mich etwas nervös.","Bitte nicht so viel Druck."],
-     noSale:"Ich bin mir einfach zu unsicher … nein, das ist mir zu heikel."},
-  G:{name:"Gewissenhaft", label:"🔵 BLAU · Gewissenhaft", color:"#2471A3",
-     sell:"Fakten & Belege statt Meinungen, schriftliche Unterlagen, Genauigkeit, kein Drängen.",
-     observe:"Bleibt sachlich und reserviert, macht sich Notizen, fragt nach Unterlagen, hält wenig Blickkontakt und überlegt jede Aussage genau.",
-     good:["Gut, das ist nachvollziehbar.","Sauber belegt – überzeugend.","Das ist präzise. Gut."],
-     bad:["Das ist mir zu vage.","Ich brauche Belege, keine Worte.","Wo sind die harten Fakten?"],
-     noSale:"Die Faktenlage überzeugt mich nicht. Ich entscheide mich dagegen."},
+  D:{name:"Dominant", label:"🔴 RED · Dominant",  color:"#C0392B",
+     sell:"Clear & direct, get to the point, numbers & results, fast decisions.",
+     observe:"Looks you firmly and challengingly in the eye, speaks fast and decisively, barely lets you finish – and keeps checking the clock.",
+     good:["Good. That's how you talk to me.","Exactly – I like the pace.","Results-driven. Very good."],
+     bad:["Get to the point – my time's ticking.","Too much talk. What's in it for me?","Spare me the detours."],
+     noSale:"That does nothing for me. End of discussion – goodbye."},
+  I:{name:"Influencing", label:"🟡 YELLOW · Influencing", color:"#D4A017",
+     sell:"Relationship & enthusiasm, references, the big picture, personal warmth.",
+     observe:"Beams, talks a lot and lively with big gestures, jumps from topic to topic and immediately mentions people you both know.",
+     good:["Yes! That's exactly what I wanted to hear!","Oh, that sounds exciting!","Wonderful – right up my alley!"],
+     bad:["Hm … sounds a bit boring.","Oh dear, rather dry.","That doesn't grab me."],
+     noSale:"Ah … the spark just isn't there. Let's leave it."},
+  S:{name:"Steady", label:"🟢 GREEN · Steady", color:"#27AE60",
+     sell:"Build trust, security & guarantees, no pressure, support personally.",
+     observe:"Comes across friendly and a little reserved, speaks calmly and warmly, asks lots of questions and quickly calls you by your first name.",
+     good:["That reassures me.","Nice, that gives me security.","That feels good."],
+     bad:["Oh … that's too fast for me.","That makes me a bit nervous.","Please, not so much pressure."],
+     noSale:"I'm just too unsure … no, that's too risky for me."},
+  G:{name:"Conscientious", label:"🔵 BLUE · Conscientious", color:"#2471A3",
+     sell:"Facts & evidence over opinions, written documentation, accuracy, no rushing.",
+     observe:"Stays factual and reserved, takes notes, asks for documents, keeps little eye contact and weighs every statement carefully.",
+     good:["Good, that's comprehensible.","Cleanly documented – convincing.","That's precise. Good."],
+     bad:["That's too vague for me.","I need evidence, not words.","Where are the hard facts?"],
+     noSale:"The data doesn't convince me. I'll decide against it."},
 };
-const NEUTRAL=["Verstehe.","Mhm, gut.","In Ordnung.","Gut, weiter."]; // Schwer: keine verräterische Reaktion
-// Reaktionen auf eine HALB passende Antwort (Nebentyp) – lauwarm
+const NEUTRAL=["I see.","Mm, alright.","Okay.","Good, go on."]; // Hard: no telling reaction
+// Reactions to a HALF-fitting answer (secondary type) – lukewarm
 const MID={
-  D:["Hm, brauchbar – aber nicht ganz auf den Punkt.","Geht in die Richtung, reicht mir aber nicht.","Halb überzeugt – schärfer, bitte."],
-  I:["Ganz nett – aber da geht doch mehr!","Hm, ein bisschen mehr Schwung dürfte es sein.","Okay, aber so richtig funkt's noch nicht."],
-  S:["Ganz okay … so ganz sicher bin ich aber noch nicht.","Hm, halb beruhigt.","Das geht so halbwegs in die richtige Richtung."],
-  G:["Teilweise nachvollziehbar – aber nicht vollständig.","Halb belegt, sagen wir so.","Okay, aber da fehlt mir noch etwas."]
+  D:["Hm, usable – but not quite on point.","Heading the right way, but not enough for me.","Half convinced – sharper, please."],
+  I:["Quite nice – but there's more in it!","Hm, could use a bit more spark.","Okay, but it's not really clicking yet."],
+  S:["Quite okay … but I'm not fully sure yet.","Hm, only half reassured.","That's roughly heading the right way."],
+  G:["Partly comprehensible – but not complete.","Half-documented, let's say.","Okay, but something's still missing for me."]
 };
 // Pro Kunde: EIN voll passender Typ (= type) und EIN halb passender Nebentyp (halbe Punkte).
 // Quelle der Nebentypen: DISG-Nachbarschaft aus dem Skript (wie in v1 „Type Match").
@@ -340,9 +339,9 @@ const PARTIAL={markus:"G",sandra:"G",lena:"D",tom:"S",peter:"G",maria:"I",andrea
 
 /* ---------- Schwierigkeitsgrade ---------- */
 const DIFF = {
-  leicht:{label:"Leicht", hint:true,  reactions:"full", mult:1,   dd:"Mit Körpersprache-Hinweis · klare Reaktionen"},
-  mittel:{label:"Mittel", hint:false, reactions:"full", mult:1.5, dd:"Ohne Hinweis · klare Reaktionen · ×1,5"},
-  schwer:{label:"Schwer", hint:false, reactions:"none", mult:2,   dd:"Nur die Worte zählen · ×2"},
+  leicht:{label:"Easy",   hint:true,  reactions:"full", mult:1,   dd:"With body-language hint · clear reactions"},
+  mittel:{label:"Medium", hint:false, reactions:"full", mult:1.5, dd:"No hint · clear reactions · ×1.5"},
+  schwer:{label:"Hard",   hint:false, reactions:"none", mult:2,   dd:"Only the words count · ×2"},
 };
 let difficulty="leicht";
 
@@ -351,273 +350,273 @@ function streakMult(s){ return [1,1,1.15,1.3,1.5,1.75,2][Math.min(s,6)]; }
 
 /* ---------- Kunden (x,z = Startposition) ---------- */
 const NPCS = [
-  {id:"markus", name:"Markus Berger", role:"Geschäftsführer, Maschinenbau", type:"D", base:800, step:700,
-   x:-14, z:-12, product:"Produktionssteuerung XR-9",
+  {id:"markus", name:"Markus Berger", role:"Managing Director, Mechanical Engineering", type:"D", base:800, step:700,
+   x:-14, z:-12, product:"Production Control XR-9",
    rounds:[
-     {q:"Reden wir nicht lange um den heißen Brei. Was springt für mich dabei raus?",
-      a:{D:"15 % weniger Stillstand, Amortisation in 8 Monaten. Sagen Sie ja, und wir starten nächste Woche.",
-         I:"Das wird Sie begeistern! Die halbe Branche schwärmt davon – Sie wären ganz vorne mit dabei.",
-         S:"Lassen Sie uns nichts überstürzen. Wir gehen jeden Schritt gemeinsam und in Ruhe durch.",
-         G:"Ich habe Ihnen eine 40-seitige Dokumentation mitgebracht, die jede Funktion im Detail erläutert."}},
-     {q:"Ich treffe Entscheidungen schnell. Überzeugen Sie mich – jetzt.",
-      a:{D:"Dann entscheiden wir jetzt: Pilot in Werk 1, messbare Zahlen nach 30 Tagen. Hand drauf?",
-         I:"Stellen Sie sich das Titelbild vor: Ihr Werk als Vorzeige-Referenz der ganzen Region!",
-         S:"Sie können sich alle Zeit der Welt nehmen – wir warten, bis Sie sich ganz sicher fühlen.",
-         G:"Werfen wir zuerst einen Blick auf die Norm-Tabellen und die statistische Auswertung in Anhang C."}},
-     {q:"Und wenn etwas hakt – wer löst das? Ich will keine Ausreden, ich will Ergebnisse.",
-      a:{D:"Fester Ansprechpartner, 4-Stunden-Reaktion, schriftlich garantiert. Problem gelöst, Punkt.",
-         I:"Unser Support ist ein super sympathischer Haufen – mit denen macht das richtig Spaß!",
-         S:"Wir lassen Sie nie allein und bauen in Ruhe eine vertrauensvolle Partnerschaft auf.",
-         G:"Im SLA-Dokument finden Sie auf Seite 12 sämtliche Reaktionszeiten exakt aufgeschlüsselt."}}],
-   close:{high:"Verkauft. Sie liefern Ergebnisse statt Gerede – so muss das sein.",
-          mid:"In Ordnung, wir probieren es. Aber überzeugen Sie mich im Betrieb."},
-   reveal:"Markus will Ergebnisse, Tempo und klare Entscheidungen. Er punktet auf knappe, direkte Sprache mit Zahlen – Smalltalk und lange Erklärungen verlieren ihn."},
+     {q:"Let's not beat around the bush. What's in it for me?",
+      a:{D:"15% less downtime, payback in 8 months. Say yes and we start next week.",
+         I:"You'll love it! Half the industry raves about it – you'd be right at the front.",
+         S:"Let's not rush anything. We'll go through every step together, calmly.",
+         G:"I've brought you a 40-page document explaining every function in detail."}},
+     {q:"I make decisions fast. Convince me – right now.",
+      a:{D:"Then let's decide now: a pilot at plant 1, measurable numbers after 30 days. Deal?",
+         I:"Picture the cover story: your plant as the showcase reference for the whole region!",
+         S:"Take all the time in the world – we'll wait until you feel completely sure.",
+         G:"Let's first look at the standards tables and the statistical analysis in appendix C."}},
+     {q:"And if something breaks – who fixes it? I don't want excuses, I want results.",
+      a:{D:"One dedicated contact, 4-hour response, guaranteed in writing. Problem solved, period.",
+         I:"Our support team is a really likeable bunch – working with them is genuinely fun!",
+         S:"We'll never leave you alone and build a trusting partnership at a calm pace.",
+         G:"In the SLA document, page 12 lists every response time, precisely broken down."}}],
+   close:{high:"Sold. You deliver results, not talk – that's how it should be.",
+          mid:"Alright, we'll try it. But prove yourself in operation."},
+   reveal:"Markus wants results, pace and clear decisions. He responds to short, direct language with numbers – small talk and long explanations lose him."},
 
-  {id:"sandra", name:"Sandra Voss", role:"Einkaufsleiterin, Automotive", type:"D", base:1000, step:800,
-   x:14, z:-12, product:"Komponenten-Serie K7",
+  {id:"sandra", name:"Sandra Voss", role:"Head of Purchasing, Automotive", type:"D", base:1000, step:800,
+   x:14, z:-12, product:"Component Series K7",
    rounds:[
-     {q:"Ich habe heute noch zehn andere Termine. Warum gerade Sie?",
-      a:{D:"Weil wir 12 % günstiger sind und pünktlicher liefern als jeder Wettbewerber. Das spart Ihnen sofort Geld.",
-         I:"Weil die Zusammenarbeit mit uns einfach Freude macht – fragen Sie mal Ihre Kollegen aus der Branche!",
-         S:"Weil wir verlässlich an Ihrer Seite bleiben, ganz ohne Druck, in gewachsenem Vertrauen.",
-         G:"Weil unsere Prüfprotokolle eine Fehlerquote von 0,02 % belegen – hier die vollständige Auswertung."}},
-     {q:"Preis ist nicht alles, aber fast. Wo ist mein Vorteil – konkret?",
-      a:{D:"800 € pro Charge weniger, ab sofort. Bestellen Sie heute, sichern Sie sich den Staffelpreis.",
-         I:"Sie holen sich einen Partner, der Sie strahlen lässt – Ihr Einkauf wird zum Vorbild im Konzern!",
-         S:"Wir sorgen dafür, dass Sie sich rundum abgesichert fühlen, Schritt für Schritt.",
-         G:"Die Total-Cost-of-Ownership-Rechnung über fünf Jahre liegt Ihnen detailliert vor."}},
-     {q:"Und wenn ich nachverhandeln will? Ich gebe mich nicht mit dem ersten Angebot zufrieden.",
-      a:{D:"Dann machen wir's kurz: 3 % extra bei Abschluss heute. Mehr geht nicht – aber das gilt jetzt.",
-         I:"Sie sind eine harte Verhandlerin, das imponiert mir – das wird ein legendärer Deal!",
-         S:"Wir finden gemeinsam eine Lösung, mit der sich alle wohlfühlen, ganz ohne Hektik.",
-         G:"Jede Konditionsstufe ist in unserer Preismatrix exakt hinterlegt – schauen wir sie zusammen an."}}],
-   close:{high:"Abgemacht. Sie wissen, was Sie wollen – das schätze ich.",
-          mid:"Gut, das Volumen nehme ich. Den Rest sehen wir später."},
-   reveal:"Sandra verhandelt hart und entscheidet schnell. Überzeuge sie mit konkreten Vorteilen, Preis und einem klaren Abschluss – nicht mit Beziehungs-Geplauder."},
+     {q:"I've got ten more meetings today. Why you, specifically?",
+      a:{D:"Because we're 12% cheaper and deliver more reliably than any competitor. That saves you money immediately.",
+         I:"Because working with us is simply a pleasure – just ask your colleagues in the industry!",
+         S:"Because we stay reliably at your side, with no pressure, in trust we've grown together.",
+         G:"Because our test protocols prove a defect rate of 0.02% – here's the full analysis."}},
+     {q:"Price isn't everything, but almost. Where's my advantage – concretely?",
+      a:{D:"€800 less per batch, effective immediately. Order today and lock in the volume price.",
+         I:"You gain a partner who makes you shine – your purchasing will be the role model in the group!",
+         S:"We'll make sure you feel fully secured, step by step.",
+         G:"The five-year total-cost-of-ownership calculation is available to you in detail."}},
+     {q:"And if I want to renegotiate? I won't settle for the first offer.",
+      a:{D:"Then let's keep it short: 3% extra if you close today. That's the limit – but it stands right now.",
+         I:"You're a tough negotiator, that impresses me – this'll be a legendary deal!",
+         S:"We'll find a solution together that everyone is comfortable with, no rush.",
+         G:"Every pricing tier is recorded exactly in our price matrix – let's look at it together."}}],
+   close:{high:"Agreed. You know what you want – I appreciate that.",
+          mid:"Fine, I'll take the volume. We'll see about the rest later."},
+   reveal:"Sandra negotiates hard and decides fast. Win her with concrete advantages, price and a clear close – not relationship chit-chat."},
 
-  {id:"lena", name:"Lena Sommer", role:"Marketing-Direktorin", type:"I", base:600, step:600,
-   x:16, z:0, product:"Kampagnen-Plattform Glow",
+  {id:"lena", name:"Lena Sommer", role:"Marketing Director", type:"I", base:600, step:600,
+   x:16, z:0, product:"Campaign Platform Glow",
    rounds:[
-     {q:"Ich liebe Neues! Wer Spannendes nutzt das denn schon?",
-      a:{I:"Die angesagtesten Marken schwören drauf – und ehrlich, mit Ihrer Sichtbarkeit wären Sie das Aushängeschild!",
-         D:"Unwichtig, wer es nutzt. Entscheidend ist: 20 % mehr Leads. Entscheiden Sie jetzt.",
-         S:"Das müssen Sie nicht sofort entscheiden – wir lassen uns alle Zeit, die Sie brauchen.",
-         G:"Hier sind die Conversion-Statistiken der letzten zwölf Monate, aufgeschlüsselt nach Kanal."}},
-     {q:"Wenn wir das machen, dann richtig groß. Können Sie sich das vorstellen?",
-      a:{I:"Absolut – Ihre Kampagne auf jeder Bühne der Branche. Das wird ein Riesending, über das alle reden!",
-         D:"Groß oder klein ist mir egal – Hauptsache, die Zahlen stimmen am Monatsende.",
-         S:"Lassen Sie es uns lieber ruhig und Schritt für Schritt angehen, damit nichts schiefgeht.",
-         G:"Definieren wir zuerst präzise KPIs und ein sauberes Mess-Setup, bevor wir starten."}},
-     {q:"Und passt das menschlich? Ich arbeite nur mit Leuten, mit denen es Spaß macht.",
-      a:{I:"Auf jeden Fall! Ich freu mich schon riesig auf unsere gemeinsame Zeit – das wird ein Fest!",
-         D:"Spaß ist nebensächlich. Ich liefere Ergebnisse, darauf kommt es an.",
-         S:"Ich bin ein verlässlicher, ruhiger Partner – auf mich können Sie sich immer verlassen.",
-         G:"Unsere Zusammenarbeit ist in einem klaren Prozesshandbuch dokumentiert, ganz transparent."}}],
-   close:{high:"Ich bin Feuer und Flamme – wir machen das, und zwar groß!",
-          mid:"Klingt gut, ich starte mal mit einem Paket."},
-   reveal:"Lena liebt Neues, Sichtbarkeit und Begeisterung. Referenzen, große Visionen und persönliche Wärme zünden bei ihr – nüchterne Zahlen langweilen sie."},
+     {q:"I love new things! Who exciting is even using this?",
+      a:{I:"The hottest brands swear by it – and honestly, with your visibility you'd be the flagship!",
+         D:"Doesn't matter who uses it. What matters: 20% more leads. Decide now.",
+         S:"You don't have to decide right away – we'll take all the time you need.",
+         G:"Here are the conversion statistics of the last twelve months, broken down by channel."}},
+     {q:"If we do this, then really big. Can you picture that?",
+      a:{I:"Absolutely – your campaign on every stage in the industry. It'll be huge, everyone will talk about it!",
+         D:"Big or small, I don't care – as long as the numbers add up at month's end.",
+         S:"Let's rather take it calmly, step by step, so nothing goes wrong.",
+         G:"Let's first define precise KPIs and a clean measurement setup before we start."}},
+     {q:"And does it fit on a personal level? I only work with people it's fun with.",
+      a:{I:"Definitely! I'm already so excited about our time together – it'll be a blast!",
+         D:"Fun is secondary. I deliver results, that's what counts.",
+         S:"I'm a reliable, calm partner – you can always count on me.",
+         G:"Our collaboration is documented in a clear process manual, fully transparent."}}],
+   close:{high:"I'm fired up – let's do it, and big!",
+          mid:"Sounds good, I'll start with one package."},
+   reveal:"Lena loves novelty, visibility and enthusiasm. References, big visions and personal warmth ignite her – dry numbers bore her."},
 
-  {id:"tom", name:"Tom Felder", role:"Gründer, Tech-Start-up", type:"I", base:500, step:600,
-   x:14, z:12, product:"Wachstums-Toolkit Rocket",
+  {id:"tom", name:"Tom Felder", role:"Founder, Tech Start-up", type:"I", base:500, step:600,
+   x:14, z:12, product:"Growth Toolkit Rocket",
    rounds:[
-     {q:"Mega! Lassen Sie uns groß denken – was geht damit alles?",
-      a:{I:"Alles! Mit Ihrer Energie wird das ein Leuchtturm-Projekt, über das die ganze Szene redet.",
-         D:"Konkret: schnelleres Wachstum, weniger Kosten. Machen wir's, und zwar sofort.",
-         S:"Wir gehen behutsam vor, damit Ihr Team sich bei jedem Schritt wohlfühlt.",
-         G:"Hier ist die technische Spezifikation mit allen Schnittstellen sauber dokumentiert."}},
-     {q:"Ich will, dass mein Team das auch feiert. Stimmung ist mir wichtig!",
-      a:{I:"Total! Ihr Team wird begeistert sein – wir machen daraus ein gemeinsames Highlight!",
-         D:"Das Team folgt, wenn die Zahlen stimmen. Konzentrieren wir uns aufs Ergebnis.",
-         S:"Wir nehmen alle in Ruhe mit, niemand wird überfahren – versprochen.",
-         G:"Wir schulen Ihr Team anhand eines strukturierten, dokumentierten Onboarding-Plans."}},
-     {q:"Und wer nutzt das sonst noch? Ich will Teil von etwas Großem sein.",
-      a:{I:"Die spannendsten Start-ups der Szene – und Sie wären der nächste Star auf der Liste!",
-         D:"Vergessen Sie die anderen. Wichtig ist, dass SIE damit gewinnen.",
-         S:"Viele zufriedene Kunden, die uns seit Jahren treu vertrauen – ganz ohne Wechsel.",
-         G:"Eine Referenzliste mit messbaren Ergebnissen liegt Ihnen schriftlich vor."}}],
-   close:{high:"Yes! Ich bin dabei – das wird legendär!",
-          mid:"Cool, ich starte mit dem Basis-Paket."},
-   reveal:"Tom ist spontan, ideenverliebt und teambegeistert. Schwärme mit ihm vom großen Bild und der Community – trockene Details bremsen ihn aus."},
+     {q:"Awesome! Let's think big – what can it all do?",
+      a:{I:"Everything! With your energy this becomes a lighthouse project the whole scene talks about.",
+         D:"Concretely: faster growth, lower cost. Let's do it, right now.",
+         S:"We'll proceed gently so your team feels comfortable at every step.",
+         G:"Here's the technical spec with every interface cleanly documented."}},
+     {q:"I want my team to celebrate it too. The vibe matters to me!",
+      a:{I:"Totally! Your team will be thrilled – we'll make it a shared highlight!",
+         D:"The team follows when the numbers are right. Let's focus on the result.",
+         S:"We'll bring everyone along calmly, nobody gets steamrolled – promise.",
+         G:"We'll train your team using a structured, documented onboarding plan."}},
+     {q:"And who else uses it? I want to be part of something big.",
+      a:{I:"The most exciting start-ups around – and you'd be the next star on the list!",
+         D:"Forget the others. What matters is that YOU win with it.",
+         S:"Lots of happy customers who've trusted us loyally for years – no churn.",
+         G:"A reference list with measurable results is available to you in writing."}}],
+   close:{high:"Yes! I'm in – this'll be legendary!",
+          mid:"Cool, I'll start with the basic package."},
+   reveal:"Tom is spontaneous, idea-loving and team-driven. Rave with him about the big picture and the community – dry details slow him down."},
 
-  {id:"peter", name:"Peter Hansen", role:"Teamleiter Produktion, 22 Jahre dabei", type:"S", base:700, step:500,
-   x:-16, z:0, product:"Wartungssystem Stabil",
+  {id:"peter", name:"Peter Hansen", role:"Production Team Lead, 22 years on the job", type:"S", base:700, step:500,
+   x:-16, z:0, product:"Maintenance System Stabil",
    rounds:[
-     {q:"Das haben wir hier immer auf eine bestimmte Art gemacht. Warum sollte ich das ändern?",
-      a:{S:"Müssen Sie nicht über Nacht. Wir stellen behutsam um, Schritt für Schritt – ich begleite Sie persönlich.",
-         D:"Weil das Alte zu teuer ist. Umstellen, jetzt – das rechnet sich sofort.",
-         I:"Weil das neue System einfach aufregend ist – damit werden Sie zum Vorreiter im Werk!",
-         G:"Weil die Ausfallstatistik des alten Verfahrens um 18 % schlechter ist – hier die Daten."}},
-     {q:"Mir ist wichtig, dass mein Team gut mitkommt und sich niemand überfordert fühlt.",
-      a:{S:"Genau darum kümmern wir uns – ruhige Einführung, viel Begleitung, niemand bleibt zurück.",
-         D:"Das Team gewöhnt sich schnell dran. Wichtig ist, dass wir jetzt loslegen.",
-         I:"Ihr Team wird begeistert sein – wir machen aus der Einführung ein richtiges Event!",
-         G:"Wir stellen ein detailliertes Schulungshandbuch mit Schritt-für-Schritt-Anleitungen bereit."}},
-     {q:"Und kann ich mich darauf verlassen, dass Sie auch später noch für uns da sind?",
-      a:{S:"Absolut. Ich bleibe Ihr fester Ansprechpartner – auch lange nach dem Kauf. Mein Wort darauf.",
-         D:"Klar, aber reden wir über Wichtigeres: Wann starten wir?",
-         I:"Na klar, wir werden ein super Team – das wird richtig schön!",
-         G:"Unser Wartungsvertrag regelt jede Leistung schriftlich und lückenlos."}}],
-   close:{high:"Das fühlt sich gut an. Ich vertraue Ihnen – wir machen das.",
-          mid:"Gut, wir probieren es behutsam in einem Bereich."},
-   reveal:"Peter ist seit Jahren eingespielt und veränderungsscheu. Er braucht Sicherheit, einen sanften Übergang und einen verlässlichen Ansprechpartner – kein Tempo, kein Druck."},
+     {q:"We've always done it a certain way here. Why should I change that?",
+      a:{S:"You don't have to overnight. We switch gently, step by step – and I'll guide you personally.",
+         D:"Because the old way is too expensive. Switch, now – it pays off immediately.",
+         I:"Because the new system is simply exciting – it'll make you the pioneer in the plant!",
+         G:"Because the old method's failure statistics are 18% worse – here's the data."}},
+     {q:"It matters to me that my team keeps up and nobody feels overwhelmed.",
+      a:{S:"That's exactly what we take care of – a calm rollout, lots of support, nobody left behind.",
+         D:"The team gets used to it quickly. What matters is that we start now.",
+         I:"Your team will be thrilled – we'll turn the rollout into a real event!",
+         G:"We provide a detailed training manual with step-by-step instructions."}},
+     {q:"And can I rely on you still being there for us later on?",
+      a:{S:"Absolutely. I'll remain your dedicated contact – long after the purchase. You have my word.",
+         D:"Sure, but let's talk about what matters: when do we start?",
+         I:"Of course, we'll be a great team – it'll be lovely!",
+         G:"Our maintenance contract regulates every service in writing and in full."}}],
+   close:{high:"This feels good. I trust you – let's do it.",
+          mid:"Alright, let's try it gently in one area."},
+   reveal:"Peter has been settled for years and is change-averse. He needs security, a gentle transition and a reliable contact – no pace, no pressure."},
 
-  {id:"maria", name:"Maria Kunz", role:"Office-Managerin", type:"S", base:400, step:400,
-   x:0, z:15, product:"Büro-Organizer Harmonie",
+  {id:"maria", name:"Maria Kunz", role:"Office Manager", type:"S", base:400, step:400,
+   x:0, z:15, product:"Office Organizer Harmonie",
    rounds:[
-     {q:"Mir ist wichtig, dass sich im Team alle wohlfühlen und es friedlich bleibt.",
-      a:{S:"Das verstehe ich gut. Die Lösung bringt Ruhe rein, alle werden behutsam mitgenommen – ganz ohne Stress.",
-         D:"Wichtig ist, dass es funktioniert und Zeit spart. Der Rest regelt sich von selbst.",
-         I:"Ihr Team wird das lieben – stellen Sie sich die gute Laune vor, wenn alle begeistert sind!",
-         G:"Die Software erfüllt sämtliche Datenschutz-Normen – hier die vollständige Zertifizierung."}},
-     {q:"Ich mag keine plötzlichen Umstellungen. Geht das auch ganz sanft?",
-      a:{S:"Natürlich. Wir gehen es gemächlich an, in Ihrem Tempo – und ich bin bei jedem Schritt an Ihrer Seite.",
-         D:"Am besten reißen wir es schnell ab – einmal umstellen, fertig, weiter geht's.",
-         I:"Veränderung ist doch aufregend! Wir machen ein kleines Fest aus dem Umstieg!",
-         G:"Der Migrationsplan ist in 14 dokumentierten Einzelschritten exakt festgelegt."}},
-     {q:"Und bleiben Sie erreichbar, wenn mal etwas ist? Ich mag verlässliche Partner.",
-      a:{S:"Immer. Sie haben mich als festen Ansprechpartner – auf mich ist Verlass, das verspreche ich Ihnen.",
-         D:"Selbstverständlich. Aber lassen Sie uns zuerst den Abschluss machen.",
-         I:"Aber sowas von! Wir werden beste Freunde, das wird wunderbar!",
-         G:"Sämtliche Support-Zeiten sind im Servicevertrag schriftlich fixiert."}}],
-   close:{high:"Das fühlt sich richtig an. Ich nehme es – danke für Ihre Geduld.",
-          mid:"Gut, ich starte vorsichtig mit dem kleinen Paket."},
-   reveal:"Maria will Harmonie und ein gutes Gefühl fürs Team. Ruhe, Verlässlichkeit und persönliche Begleitung gewinnen sie – Hektik verunsichert sie."},
+     {q:"It's important to me that everyone on the team feels good and it stays peaceful.",
+      a:{S:"I understand that well. The solution brings calm; everyone is taken along gently – no stress at all.",
+         D:"What matters is that it works and saves time. The rest sorts itself out.",
+         I:"Your team will love it – picture the good mood when everyone's excited!",
+         G:"The software meets all data-protection standards – here's the full certification."}},
+     {q:"I don't like sudden changes. Can this be done really gently?",
+      a:{S:"Of course. We'll take it slowly, at your pace – and I'm at your side every step.",
+         D:"Best to rip it off fast – switch once, done, move on.",
+         I:"Change is exciting! We'll make a little celebration out of the switch!",
+         G:"The migration plan is laid out in exactly 14 documented individual steps."}},
+     {q:"And will you stay reachable if something comes up? I like reliable partners.",
+      a:{S:"Always. You have me as a dedicated contact – you can count on me, I promise.",
+         D:"Certainly. But let's do the close first.",
+         I:"Absolutely! We'll become best friends, it'll be wonderful!",
+         G:"All support hours are fixed in writing in the service contract."}}],
+   close:{high:"This feels right. I'll take it – thank you for your patience.",
+          mid:"Okay, I'll start carefully with the small package."},
+   reveal:"Maria wants harmony and a good feeling for the team. Calm, reliability and personal support win her over – a hectic pace unsettles her."},
 
-  {id:"andrea", name:"Dr. Andrea List", role:"Qualitätsmanagerin, Medizintechnik", type:"G", base:900, step:700,
-   x:0, z:-15, product:"Prüfsystem Exakt",
+  {id:"andrea", name:"Dr. Andrea List", role:"Quality Manager, Medical Technology", type:"G", base:900, step:700,
+   x:0, z:-15, product:"Inspection System Exakt",
    rounds:[
-     {q:"Bevor ich irgendetwas zusage, will ich Belege sehen. Wie genau ist Ihr System?",
-      a:{G:"Messgenauigkeit 99,98 %, ISO-13485-zertifiziert. Hier das vollständige Prüfprotokoll, schriftlich und nachprüfbar.",
-         D:"Genau genug. Reden wir nicht über Nachkommastellen – entscheiden Sie heute.",
-         I:"Es ist einfach fantastisch genau – die ganze Branche ist begeistert davon!",
-         S:"Da müssen Sie sich keine Sorgen machen, das passt schon – wir kümmern uns drum."}},
-     {q:"Und wie sieht es mit der Dokumentation aus? Ich brauche alles lückenlos nachvollziehbar.",
-      a:{G:"Jeder Messwert wird automatisch protokolliert und revisionssicher archiviert – inklusive Audit-Trail.",
-         D:"Dokumentation ist Nebensache. Wichtig ist, dass es läuft. Los geht's.",
-         I:"Ach, die Doku ist super übersichtlich – damit werden Sie richtig glänzen!",
-         S:"Machen Sie sich keine Mühe damit, wir nehmen Ihnen das alles ganz entspannt ab."}},
-     {q:"Welche Annahmen stecken hinter Ihren Werten? Ich prüfe gern selbst nach.",
-      a:{G:"Berechtigte Frage. Alle Messbedingungen und Toleranzen sind in Anhang B offengelegt – prüfen Sie gern.",
-         D:"Vertrauen Sie den Zahlen und entscheiden Sie. Details kosten nur Zeit.",
-         I:"Glauben Sie mir einfach – das funktioniert, da ist sich jeder einig!",
-         S:"Das hat sich über Jahre bewährt, da können Sie ganz beruhigt sein."}}],
-   close:{high:"Die Datenlage überzeugt. Auf dieser Grundlage entscheide ich: Wir nehmen es.",
-          mid:"Die Unterlagen sind solide. Ich genehmige einen begrenzten Einsatz."},
-   reveal:"Dr. List entscheidet nur auf Datenbasis. Fakten, Belege und schriftliche Dokumentation überzeugen sie – vage Begeisterung schreckt sie ab."},
+     {q:"Before I agree to anything, I want to see evidence. How accurate is your system?",
+      a:{G:"Measurement accuracy 99.98%, ISO 13485 certified. Here's the full test protocol, in writing and verifiable.",
+         D:"Accurate enough. Let's not argue decimals – decide today.",
+         I:"It's just fantastically accurate – the whole industry is thrilled with it!",
+         S:"No need to worry about that, it'll be fine – we'll take care of it."}},
+     {q:"And what about documentation? I need everything fully traceable.",
+      a:{G:"Every measurement is logged automatically and archived audit-proof – including an audit trail.",
+         D:"Documentation is secondary. What matters is that it runs. Let's go.",
+         I:"Oh, the docs are super clear – they'll really make you shine!",
+         S:"Don't trouble yourself with that, we'll take it all off your hands, nice and easy."}},
+     {q:"What assumptions are behind your figures? I like to check for myself.",
+      a:{G:"Fair question. All measurement conditions and tolerances are disclosed in appendix B – check away.",
+         D:"Trust the numbers and decide. Details only cost time.",
+         I:"Just believe me – it works, everyone agrees on that!",
+         S:"It's proven itself over the years, so you can rest assured."}}],
+   close:{high:"The data convinces me. On that basis I decide: we'll take it.",
+          mid:"The documents are solid. I'll approve a limited rollout."},
+   reveal:"Dr. List decides only on data. Facts, evidence and written documentation convince her – vague enthusiasm puts her off."},
 
-  {id:"robert", name:"Robert Stein", role:"Controller, Industriekonzern", type:"G", base:800, step:700,
-   x:-14, z:12, product:"Controlling-Suite Präzis",
+  {id:"robert", name:"Robert Stein", role:"Controller, Industrial Group", type:"G", base:800, step:700,
+   x:-14, z:12, product:"Controlling Suite Präzis",
    rounds:[
-     {q:"Zeigen Sie mir die ROI-Herleitung. Ich will jede Annahme nachvollziehen können.",
-      a:{G:"Gerne – hier die vollständige Kalkulation: Inputs, Formeln, Quellen. Jede Zahl ist nachprüfbar belegt.",
-         D:"Unterm Strich: 22 % Einsparung. Reicht das? Dann entscheiden wir jetzt.",
-         I:"Der ROI ist fantastisch – damit werden Sie zum Helden Ihres Vorstands!",
-         S:"Verlassen Sie sich drauf, das passt – darüber müssen Sie sich keine Sorgen machen."}},
-     {q:"Und die Quellen Ihrer Benchmarks? Ich akzeptiere keine geschätzten Werte.",
-      a:{G:"Alle Benchmarks stammen aus geprüften Studien, vollständig zitiert – die Quellenliste liegt bei.",
-         D:"Die Quellen sind solide. Verlieren wir uns nicht in Details – treffen wir die Entscheidung.",
-         I:"Die Zahlen sind erstklassig, da sind sich alle Experten einig – glauben Sie mir!",
-         S:"Das ist alles gut abgesichert, da können Sie ganz ruhig sein."}},
-     {q:"Was passiert im schlechtesten Fall? Ich will jedes Risiko durchgerechnet sehen.",
-      a:{G:"Wir haben drei Szenarien modelliert – Best, Real, Worst Case. Die Sensitivitätsanalyse finden Sie auf Seite 9.",
-         D:"Das Risiko ist beherrschbar. Konzentrieren wir uns auf den Gewinn und entscheiden.",
-         I:"Ach, im schlimmsten Fall ist es immer noch großartig – keine Sorge!",
-         S:"Wir stehen Ihnen bei, falls mal etwas ist – Sie sind bei uns gut aufgehoben."}}],
-   close:{high:"Sauber hergeleitet, lückenlos belegt. Dem stimme ich zu.",
-          mid:"Die Datenbasis trägt einen Teilumfang. Den genehmige ich."},
-   reveal:"Robert will jede Annahme nachrechnen können. Liefere Herleitungen, Quellen und Szenarien – kein Drängen, keine Pauschalaussagen."},
+     {q:"Show me the ROI derivation. I want to be able to follow every assumption.",
+      a:{G:"Gladly – here's the full calculation: inputs, formulas, sources. Every figure is verifiably backed.",
+         D:"Bottom line: 22% savings. Enough? Then let's decide now.",
+         I:"The ROI is fantastic – it'll make you the hero of your board!",
+         S:"Rely on it, it's fine – you don't need to worry about that."}},
+     {q:"And the sources of your benchmarks? I don't accept estimated values.",
+      a:{G:"All benchmarks come from peer-reviewed studies, fully cited – the source list is enclosed.",
+         D:"The sources are solid. Let's not get lost in details – let's make the decision.",
+         I:"The numbers are first-class, all the experts agree – believe me!",
+         S:"It's all well secured, so you can stay calm."}},
+     {q:"What happens in the worst case? I want every risk fully calculated.",
+      a:{G:"We modeled three scenarios – best, real, worst case. The sensitivity analysis is on page 9.",
+         D:"The risk is manageable. Let's focus on the gain and decide.",
+         I:"Oh, even in the worst case it's still great – no worries!",
+         S:"We'll stand by you if anything ever happens – you're in good hands with us."}}],
+   close:{high:"Cleanly derived, fully documented. I approve it.",
+          mid:"The data supports a partial scope. I'll approve that."},
+   reveal:"Robert wants to recompute every assumption. Deliver derivations, sources and scenarios – no pushing, no blanket statements."},
 ];
 
-/* Zusätzliche Aussagen je Kunde – pro Gespräch werden 3 aus dem Pool zufällig gezogen → mehr Variation */
+/* Extra statements per customer – 3 are drawn at random from the pool each conversation → more variation */
 const EXTRA={
   markus:[
-    {q:"Ihr Wettbewerber war gestern hier. Warum sollte ich bei Ihnen kaufen?",
-     a:{D:"Weil wir liefern, was die nur versprechen: 15 % mehr Durchsatz, vertraglich zugesichert.",
-        I:"Weil wir das spannendere Team sind – mit uns macht das einfach mehr her!",
-        S:"Weil wir verlässlich an Ihrer Seite bleiben, ruhig und ganz ohne Druck.",
-        G:"Weil unsere Spezifikation jeden Wettbewerber im Detail schlägt – hier der Vergleich."}},
-    {q:"Ich habe wenig Geduld für lange Pilotphasen. Wie schnell sehe ich Wirkung?",
-     a:{D:"Erste Effekte in 2 Wochen, voller ROI in 8 Monaten. Schneller geht's nicht.",
-        I:"Ganz schnell – und Sie werden begeistert sein, was alle dazu sagen!",
-        S:"Wir nehmen uns die Zeit, die Sie brauchen – nichts wird überstürzt.",
-        G:"Der Wirkungsverlauf ist in der beigefügten Studie Monat für Monat belegt."}}],
+    {q:"Your competitor was here yesterday. Why should I buy from you?",
+     a:{D:"Because we deliver what they only promise: 15% more throughput, contractually guaranteed.",
+        I:"Because we're the more exciting team – everything just looks better with us!",
+        S:"Because we stay reliably at your side, calmly and with no pressure at all.",
+        G:"Because our specification beats every competitor in detail – here's the comparison."}},
+    {q:"I have little patience for long pilot phases. How fast do I see an effect?",
+     a:{D:"First effects in 2 weeks, full ROI in 8 months. It doesn't get faster.",
+        I:"Very fast – and you'll be thrilled by what everyone says about it!",
+        S:"We'll take the time you need – nothing is rushed.",
+        G:"The effect over time is documented month by month in the attached study."}}],
   sandra:[
-    {q:"Ich kaufe große Stückzahlen. Was heißt das für meinen Preis?",
-     a:{D:"Ab 10.000 Stück 9 % Rabatt, sofort wirksam. Schlagen Sie ein.",
-        I:"Bei dem Volumen werden Sie unser Lieblingskunde – das wird großartig!",
-        S:"Wir finden gemeinsam in Ruhe die Staffel, mit der Sie sich wohlfühlen.",
-        G:"Die exakte Mengen-Preis-Matrix mit allen Stufen liegt Ihnen vor."}},
-    {q:"Liefertreue ist mir heilig. Können Sie das halten?",
-     a:{D:"98,7 % On-Time, vertraglich mit Pönale hinterlegt. Punkt.",
-        I:"Aber klar! Unsere Logistik-Crew ist ein eingespieltes, tolles Team!",
-        S:"Verlassen Sie sich drauf – wir bleiben dran und melden uns proaktiv.",
-        G:"Hier die Liefertreue-Statistik der letzten 24 Monate, lückenlos dokumentiert."}}],
+    {q:"I buy in large quantities. What does that mean for my price?",
+     a:{D:"From 10,000 units, 9% discount, effective immediately. Shake on it.",
+        I:"At that volume you'll be our favorite customer – it'll be great!",
+        S:"We'll calmly find the tier together that you're comfortable with.",
+        G:"The exact quantity-price matrix with all tiers is available to you."}},
+    {q:"Delivery reliability is sacred to me. Can you keep that up?",
+     a:{D:"98.7% on-time, contractually backed with a penalty clause. Period.",
+        I:"Of course! Our logistics crew is a well-rehearsed, great team!",
+        S:"Rely on it – we stay on it and reach out proactively.",
+        G:"Here's the delivery-reliability statistic of the last 24 months, fully documented."}}],
   lena:[
-    {q:"Auf der Messe reden alle über KI. Sind Sie da vorne mit dabei?",
-     a:{I:"Voll! Damit sind Sie Trendsetter und stehen im Rampenlicht der Branche!",
-        D:"Wichtig ist nicht der Hype, sondern 20 % mehr Leads. Punkt.",
-        S:"Wir gehen das behutsam an, damit sich Ihr Team sicher fühlt.",
-        G:"Hier die technischen Details unserer KI-Modelle, sauber dokumentiert."}},
-    {q:"Und wie sieht das alles aus? Mir ist Optik wichtig!",
-     a:{I:"Atemberaubend! Ihre Kampagnen sehen aus wie ein Magazin-Cover – alle werden staunen!",
-        D:"Optik ist nett, entscheidend ist die Conversion. Die stimmt.",
-        S:"Schlicht und vertraut – nichts, was Ihr Team verschreckt.",
-        G:"Jedes Template folgt einem präzisen, dokumentierten Style-Guide."}}],
+    {q:"At the trade fair everyone's talking about AI. Are you at the forefront?",
+     a:{I:"Totally! That makes you a trendsetter, right in the spotlight of the industry!",
+        D:"What matters isn't the hype, but 20% more leads. Period.",
+        S:"We'll approach it gently so your team feels safe.",
+        G:"Here are the technical details of our AI models, cleanly documented."}},
+    {q:"And how does it all look? Aesthetics matter to me!",
+     a:{I:"Stunning! Your campaigns look like a magazine cover – everyone will be amazed!",
+        D:"Looks are nice; what's decisive is the conversion. And that's solid.",
+        S:"Plain and familiar – nothing that would startle your team.",
+        G:"Every template follows a precise, documented style guide."}}],
   tom:[
-    {q:"Ich hab schon zehn Tools probiert. Was macht euch besonders?",
-     a:{I:"Mit uns wird's ein Erlebnis – eine Community, in der Sie zum Star werden!",
-        D:"Wir liefern messbares Wachstum, nicht noch ein Tool. Sofort startklar.",
-        S:"Wir begleiten Sie ruhig beim Umstieg – kein Stress, kein Risiko.",
-        G:"Unsere Architektur ist offen dokumentiert – jede Schnittstelle nachprüfbar."}},
-    {q:"Wenn das durch die Decke geht – wachst ihr mit?",
-     a:{I:"Aber sowas von! Gemeinsam reißen wir jede Grenze ein – das wird riesig!",
-        D:"Skaliert bis zur Millionenlast. Drücken Sie aufs Gas.",
-        S:"Wir wachsen behutsam mit Ihnen, in Ihrem Tempo.",
-        G:"Die Skalierungsgrenzen sind im Lastdiagramm exakt ausgewiesen."}}],
+    {q:"I've already tried ten tools. What makes you special?",
+     a:{I:"With us it becomes an experience – a community where you become the star!",
+        D:"We deliver measurable growth, not yet another tool. Ready to go instantly.",
+        S:"We'll support you calmly through the switch – no stress, no risk.",
+        G:"Our architecture is openly documented – every interface verifiable."}},
+    {q:"If this takes off – will you scale with me?",
+     a:{I:"Absolutely! Together we'll smash every limit – it'll be huge!",
+        D:"Scales to millions of requests. Hit the gas.",
+        S:"We'll grow gently with you, at your pace.",
+        G:"The scaling limits are precisely shown in the load diagram."}}],
   peter:[
-    {q:"Mein Vorgänger hat sich mit so einer Umstellung die Finger verbrannt. Das macht mir Sorgen.",
-     a:{S:"Verständlich. Wir gehen behutsam vor und ich bin persönlich dabei – nichts wird übers Knie gebrochen.",
-        D:"Das Alte war schlecht gemacht. Wir machen's richtig – und zwar zügig.",
-        I:"Keine Sorge, das wird ein Fest – Ihr Team wird's lieben!",
-        G:"Aus solchen Fällen haben wir eine 30-Punkte-Checkliste abgeleitet, hier dokumentiert."}},
-    {q:"Können wir erst mal ganz klein anfangen?",
-     a:{S:"Unbedingt. Wir starten in einem Bereich, in aller Ruhe – und erweitern, wenn Sie sich sicher fühlen.",
-        D:"Klein oder groß – Hauptsache, wir fangen heute an.",
-        I:"Klar! Und wenn's läuft, rollen wir's groß aus – das wird klasse!",
-        G:"Ein klar abgegrenzter Pilot mit definierten Kennzahlen ist dokumentiert vorbereitet."}}],
+    {q:"My predecessor got burned by a switch like this. That worries me.",
+     a:{S:"Understandable. We proceed gently and I'm personally involved – nothing is rushed.",
+        D:"The old setup was poorly done. We'll do it right – and quickly.",
+        I:"No worries, it'll be a celebration – your team will love it!",
+        G:"From cases like that we derived a 30-point checklist, documented here."}},
+    {q:"Can we start really small first?",
+     a:{S:"Absolutely. We start in one area, calmly – and expand once you feel sure.",
+        D:"Small or big – the main thing is we start today.",
+        I:"Sure! And once it runs, we'll roll it out big – it'll be great!",
+        G:"A clearly scoped pilot with defined metrics is documented and prepared."}}],
   maria:[
-    {q:"Ich hab Angst, dass die Kollegen das nicht annehmen.",
-     a:{S:"Das nehmen wir ernst. Wir holen alle behutsam ab und begleiten jeden – niemand bleibt zurück.",
-        D:"Sobald es Zeit spart, sind alle dabei. Einfach starten.",
-        I:"Die werden begeistert sein – wir machen ein kleines Fest aus dem Start!",
-        G:"Ein dokumentierter Einführungsplan mit Schulungen liegt bereit."}},
-    {q:"Bekomme ich jemanden, den ich anrufen kann, wenn ich nicht weiterweiß?",
-     a:{S:"Immer. Sie haben mich als feste Bezugsperson – ein Anruf genügt, ich bin da.",
-        D:"Ja. Aber lassen Sie uns zuerst den Abschluss machen.",
-        I:"Na klar, wir telefonieren bestimmt ständig – wird super!",
-        G:"Die Hotline-Zeiten sind im Servicevertrag schriftlich fixiert."}}],
+    {q:"I'm afraid the colleagues won't accept it.",
+     a:{S:"We take that seriously. We bring everyone along gently and support each one – nobody is left behind.",
+        D:"As soon as it saves time, everyone's on board. Just start.",
+        I:"They'll be thrilled – we'll make a little celebration out of the start!",
+        G:"A documented rollout plan with training sessions is ready."}},
+    {q:"Do I get someone I can call when I'm stuck?",
+     a:{S:"Always. You have me as a dedicated point of contact – one call and I'm there.",
+        D:"Yes. But let's do the close first.",
+        I:"Of course, we'll surely be on the phone all the time – it'll be great!",
+        G:"The hotline hours are fixed in writing in the service contract."}}],
   andrea:[
-    {q:"Wie steht es um die Normkonformität? Ich brauche Audit-Sicherheit.",
-     a:{G:"Vollständig konform zu ISO 13485 und MDR – die Konformitätserklärungen liegen schriftlich bei.",
-        D:"Konform genug. Entscheiden Sie, dann läuft's.",
-        I:"Da sind Sie bestens aufgestellt – damit glänzen Sie im Audit!",
-        S:"Machen Sie sich keine Sorgen, das regeln wir gemeinsam."}},
-    {q:"Was passiert bei einem Messfehler im laufenden Betrieb?",
-     a:{G:"Jeder Fehler wird protokolliert, klassifiziert und rückverfolgbar dokumentiert – inklusive Korrekturworkflow.",
-        D:"Fehler werden sofort behoben. Schnell und unkompliziert.",
-        I:"Ach, das passiert kaum – und wenn, kümmern wir uns mit einem Lächeln!",
-        S:"Keine Sorge, wir stehen Ihnen in so einem Fall verlässlich bei."}}],
+    {q:"What about standards compliance? I need audit certainty.",
+     a:{G:"Fully compliant with ISO 13485 and MDR – the declarations of conformity are enclosed in writing.",
+        D:"Compliant enough. Decide, and it runs.",
+        I:"You're perfectly positioned there – it'll make you shine in the audit!",
+        S:"Don't worry, we'll sort that out together."}},
+    {q:"What happens with a measurement error during operation?",
+     a:{G:"Every error is logged, classified and documented traceably – including a correction workflow.",
+        D:"Errors are fixed immediately. Fast and uncomplicated.",
+        I:"Oh, that hardly ever happens – and if it does, we'll handle it with a smile!",
+        S:"No worries, we'll reliably stand by you in such a case."}}],
   robert:[
-    {q:"Ich brauche das Reporting revisionssicher. Geht das?",
-     a:{G:"Ja – jeder Wert ist versioniert, zeitgestempelt und prüfsicher archiviert. Die Spezifikation liegt bei.",
-        D:"Läuft. Sie bekommen Ihre Zahlen – pünktlich und klar.",
-        I:"Das Reporting sieht fantastisch aus – damit beeindrucken Sie den Vorstand!",
-        S:"Verlassen Sie sich drauf, das ist gut abgesichert."}},
-    {q:"Wie sind die Annahmen zur Inflation in Ihrer Kalkulation?",
-     a:{G:"Konservativ mit 3,2 % p. a. angesetzt; Quelle und Sensitivität sind in Anhang D ausgewiesen.",
-        D:"Unterm Strich bleibt es klar positiv. Entscheiden wir.",
-        I:"Die Zahlen sind top – da sind sich alle einig!",
-        S:"Das passt schon, da müssen Sie sich keine Sorgen machen."}}],
+    {q:"I need the reporting to be audit-proof. Is that possible?",
+     a:{G:"Yes – every value is versioned, timestamped and archived audit-proof. The specification is enclosed.",
+        D:"It works. You'll get your numbers – on time and clear.",
+        I:"The reporting looks fantastic – you'll impress the board with it!",
+        S:"Rely on it, it's well secured."}},
+    {q:"What are the assumptions on inflation in your calculation?",
+     a:{G:"Conservatively set at 3.2% p.a.; the source and sensitivity are shown in appendix D.",
+        D:"Bottom line, it stays clearly positive. Let's decide.",
+        I:"The numbers are top – everyone agrees!",
+        S:"It's fine, you don't need to worry about that."}}],
 };
 NPCS.forEach(n=>{ if(EXTRA[n.id]) n.rounds=n.rounds.concat(EXTRA[n.id]); });
 
@@ -867,7 +866,7 @@ function buildWorld(){
     g.position.set(npc.x*1.6,0,npc.z*1.6);
     g.userData.npc=npc; scene.add(g); pickables.push(g);
     const el=document.createElement("div"); el.className="nplabel";
-    el.innerHTML=`<span class="mark">❗</span><span class="nm">${npc.name}</span><span class="talk" style="display:none">▸ Sprechen (E)</span>`;
+    el.innerHTML=`<span class="mark">❗</span><span class="nm">${npc.name}</span><span class="talk" style="display:none">▸ Talk (E)</span>`;
     el.querySelector(".talk").addEventListener("click",()=>{ if(canTalk(npc)) startConversation(npc); });
     labels.appendChild(el);
     const o={npc, group:g, el, phase:i*0.9, talkEl:el.querySelector(".talk"), markEl:el.querySelector(".mark"),
@@ -877,7 +876,7 @@ function buildWorld(){
 
   // Glücksrad-Label
   wheelLabelEl=document.createElement("div"); wheelLabelEl.className="nplabel";
-  wheelLabelEl.innerHTML=`<span class="mark">🎡</span><span class="nm">Glücksrad</span><span class="talk" style="display:none">▸ Drehen (E)</span>`;
+  wheelLabelEl.innerHTML=`<span class="mark">🎡</span><span class="nm">Wheel of Fortune</span><span class="talk" style="display:none">▸ Spin (E)</span>`;
   wheelLabelEl.querySelector(".talk").addEventListener("click",()=>{ if(state==="world"&&nearWheel) openWheel(); });
   labels.appendChild(wheelLabelEl);
 
@@ -1059,7 +1058,7 @@ function startConversation(npc){
   $("dlgName").textContent=npc.name; $("dlgRole").textContent=npc.role+" · "+npc.product;
   $("chat").innerHTML=""; $("opts").innerHTML=""; setDots();
   const ob=$("observe");
-  if(DIFF[difficulty].hint){ ob.innerHTML="<b>👀 Beobachtung:</b> "+TYPES[npc.type].observe; ob.classList.add("show"); }
+  if(DIFF[difficulty].hint){ ob.innerHTML="<b>👀 Observation:</b> "+TYPES[npc.type].observe; ob.classList.add("show"); }
   else ob.classList.remove("show");
   $("dlgWrap").classList.add("show");
   askRound();                       // genau EINE Aussage zu Beginn (kein separater Intro-Beat)
@@ -1110,29 +1109,29 @@ function openResult(){
   $("dlgWrap").classList.remove("show"); state="sale";
   $("salePill").style.background=t.color; $("salePill").textContent=t.label;
   $("saleReveal").innerHTML='<div class="rl">'+npc.name+' · '+npc.role+'</div><div>'+npc.reveal+'</div>'+
-    '<div style="margin-top:8px;font-size:12.5px;color:#a7adc6">Voll passend: <b style="color:'+t.color+'">'+t.name+'</b> · halb passend: <b style="color:'+pt.color+'">'+pt.name+'</b> (halbe Punkte) · der Rest daneben.</div>';
+    '<div style="margin-top:8px;font-size:12.5px;color:#a7adc6">Full fit: <b style="color:'+t.color+'">'+t.name+'</b> · half fit: <b style="color:'+pt.color+'">'+pt.name+'</b> (half points) · the rest are off.</div>';
 
   if(score===0){
     streak=0; updateStreak(); pendingSale=0;
-    $("saleTitle").textContent="Kein Abschluss 😕";
+    $("saleTitle").textContent="No deal 😕";
     $("saleAmount").style.color="#a7adc6"; $("saleAmount").textContent="0 €";
-    $("saleHits").textContent="Keine Antwort hat gepasst – der Kunde kauft nicht.";
+    $("saleHits").textContent="None of your answers fit – the customer doesn't buy.";
     $("saleBreakdown").style.display="none";
-    $("saleTip").innerHTML="So tickt dieser Typ: "+t.sell+" · Versuch es später noch einmal.";
+    $("saleTip").innerHTML="How this type ticks: "+t.sell+" · Try again later.";
   } else {
     sold.add(npc.id); $("progress").textContent=soldCount()+"/"+NPCS.length;
     streak++; const sm=streakMult(streak); updateStreak();
     const price=Math.round((npc.base+npc.step*score)*d.mult*sm);
     pendingSale=price;
-    $("saleTitle").textContent=score>=3?"Perfekter Abschluss! 🎯":"Verkauft! 🤝";
+    $("saleTitle").textContent=score>=3?"Perfect deal! 🎯":"Sold! 🤝";
     $("saleAmount").style.color="#ffd36b"; $("saleAmount").textContent="+"+fmt(price)+" €";
-    const parts=[]; if(fulls)parts.push(fulls+"× voll"); if(halfs)parts.push(halfs+"× halb");
-    $("saleHits").textContent=(parts.join(" + ")||"–")+"  ·  Trefferwert "+fmt(score)+" / 3";
-    let bd="Grundpreis "+fmt(npc.base)+" € + "+fmt(score)+" × "+fmt(npc.step)+" € Bonus";
+    const parts=[]; if(fulls)parts.push(fulls+"× full"); if(halfs)parts.push(halfs+"× half");
+    $("saleHits").textContent=(parts.join(" + ")||"–")+"  ·  Hit value "+fmt(score)+" / 3";
+    let bd="Base "+fmt(npc.base)+" € + "+fmt(score)+" × "+fmt(npc.step)+" € bonus";
     if(d.mult!==1) bd+="  ×  "+d.label+" ("+fmt(d.mult)+")";
-    if(sm!==1)     bd+="  ×  🔥 Serie "+streak+" ("+fmt(sm)+")";
+    if(sm!==1)     bd+="  ×  🔥 Streak "+streak+" ("+fmt(sm)+")";
     $("saleBreakdown").style.display=""; $("saleBreakdown").innerHTML=bd;
-    $("saleTip").innerHTML=score>=3?"<b>Top!</b> Du hast den Typ durchgehend perfekt bedient.":"Voll passend wäre der <b>"+t.name+"</b>-Stil: "+t.sell;
+    $("saleTip").innerHTML=score>=3?"<b>Top!</b> You served the type perfectly throughout.":"The full fit would be the <b>"+t.name+"</b> style: "+t.sell;
   }
   $("sale").classList.add("show");
 }
@@ -1160,8 +1159,8 @@ function pulseMoney(){ const c=document.querySelector(".chip.money"); c.classLis
 /* ---------- Win ---------- */
 function showWin(){
   state="win"; $("winTotal").textContent=fmt(money)+" €";
-  $("winLine").innerHTML="Du hast alle "+NPCS.length+" Kunden überzeugt – Gesamtumsatz <b>"+fmt(money)+" €</b> ("+DIFF[difficulty].label+").<br>"+
-    "Stark! Probier eine höhere Schwierigkeit für mehr Umsatz und eine längere Serie.";
+  $("winLine").innerHTML="You won over all "+NPCS.length+" customers – total revenue <b>"+fmt(money)+" €</b> ("+DIFF[difficulty].label+").<br>"+
+    "Strong! Try a higher difficulty for more revenue and a longer streak.";
   $("win").classList.add("show");
 }
 $("winAgain").onclick=()=>{ resetGame(); playerObj.position.set(0,0,16); yaw=0; pitch=0; $("win").classList.remove("show"); state="world"; updateHint(); };
@@ -1191,23 +1190,23 @@ $("manualBtn").onclick=openManual; $("manualClose").onclick=closeManual;
 function updateHint(){
   const ch=$("crosshair"), bh=$("bottomhint"), wb=$("walkBtn");
   if(isTouch){ ch.style.display="block"; wb.style.display="flex";
-    bh.innerHTML="Ziehen = <b>umsehen</b> · Knopf = <b>gehen</b> · Schild antippen zum <b>Sprechen</b>"; return; }
+    bh.innerHTML="Drag = <b>look</b> · button = <b>go</b> · tap a sign to <b>talk</b>"; return; }
   ch.style.display=(state==="world"&&pointerLocked)?"block":"none";
   bh.innerHTML = pointerLocked
-    ? "Umsehen: <b>Maus</b> · Gehen: <b>WASD</b> · Aktion: <b>E</b> · Maus frei: <b>Esc</b>"
-    : "<b>Klick ins Bild</b> = umsehen · Gehen: <b>WASD</b> · Aktion: <b>E</b>";
+    ? "Look: <b>Mouse</b> · Move: <b>WASD</b> · Action: <b>E</b> · Free mouse: <b>Esc</b>"
+    : "<b>Click the scene</b> = look · Move: <b>WASD</b> · Action: <b>E</b>";
 }
 
 /* ---------- Glücksrad ---------- */
 const PRIZES=[
-  {label:"Niete",        money:0,    color:"#5b6270"},
-  {label:"+50 €",        money:50,   color:"#27AE60"},
-  {label:"Niete",        money:0,    color:"#5b6270"},
-  {label:"+150 €",       money:150,  color:"#2471A3"},
-  {label:"🔥 Serie +1",  streak:1,   color:"#D4A017"},
-  {label:"+300 €",       money:300,  color:"#27AE60"},
-  {label:"+600 €",       money:600,  color:"#C0392B"},
-  {label:"+1.500 €",     money:1500, color:"#e0a82e"},
+  {label:"Blank",         money:0,    color:"#5b6270"},
+  {label:"+50 €",         money:50,   color:"#27AE60"},
+  {label:"Blank",         money:0,    color:"#5b6270"},
+  {label:"+150 €",        money:150,  color:"#2471A3"},
+  {label:"🔥 Streak +1",  streak:1,   color:"#D4A017"},
+  {label:"+300 €",        money:300,  color:"#27AE60"},
+  {label:"+600 €",        money:600,  color:"#C0392B"},
+  {label:"+1,500 €",      money:1500, color:"#e0a82e"},
 ];
 let wheelRot=0, wheelSpinning=false, wheelCtx=null;
 function drawWheel(){
@@ -1227,14 +1226,14 @@ function drawWheel(){
 function prizeAt(rot){ const seg=2*Math.PI/PRIZES.length; let a=(-Math.PI/2-rot)%(2*Math.PI); if(a<0)a+=2*Math.PI; return PRIZES[Math.floor(a/seg)%PRIZES.length]; }
 function setMoney(v){ money=v; displayMoney=v; $("money").textContent=fmt(v); }
 function openWheel(){ if(document.exitPointerLock)document.exitPointerLock(); state="wheel"; $("wheel").classList.add("show");
-  $("wheelResult").textContent = money<100 ? "Du brauchst mindestens 100 € zum Drehen." : "Bereit zum Drehen.";
+  $("wheelResult").textContent = money<100 ? "You need at least 100 € to spin." : "Ready to spin.";
   $("wheelSpin").disabled = money<100; drawWheel(); }
 function closeWheel(){ if(wheelSpinning) return; $("wheel").classList.remove("show"); state="world"; updateHint(); }
 function spinWheel(){
   if(wheelSpinning) return;
-  if(money<100){ $("wheelResult").textContent="Du brauchst mindestens 100 € zum Drehen."; return; }
+  if(money<100){ $("wheelResult").textContent="You need at least 100 € to spin."; return; }
   setMoney(money-100); pulseMoney();
-  wheelSpinning=true; $("wheelSpin").disabled=true; $("wheelResult").textContent="Dreht …";
+  wheelSpinning=true; $("wheelSpin").disabled=true; $("wheelResult").textContent="Spinning …";
   const start=wheelRot, extra=Math.PI*2*(4+Math.random()*3)+Math.random()*Math.PI*2, target=start+extra, dur=3600, t0=performance.now();
   (function frame(now){
     const k=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-k,3);
@@ -1244,9 +1243,9 @@ function spinWheel(){
   })(performance.now());
 }
 function awardWheel(p){
-  if(p.streak){ streak+=p.streak; updateStreak(); $("wheelResult").innerHTML="🔥 <b>Serie +"+p.streak+"!</b> Aktuell: "+streak; }
-  else if(p.money>0){ setMoney(money+p.money); pulseMoney(); $("wheelResult").innerHTML="🎉 Gewonnen: <b>+"+fmt(p.money)+" €</b>!"; }
-  else { $("wheelResult").innerHTML="😬 Leider eine <b>Niete</b>. Nochmal?"; }
+  if(p.streak){ streak+=p.streak; updateStreak(); $("wheelResult").innerHTML="🔥 <b>Streak +"+p.streak+"!</b> Now: "+streak; }
+  else if(p.money>0){ setMoney(money+p.money); pulseMoney(); $("wheelResult").innerHTML="🎉 You won: <b>+"+fmt(p.money)+" €</b>!"; }
+  else { $("wheelResult").innerHTML="😬 A <b>blank</b> — unlucky. Again?"; }
   $("wheelSpin").disabled = money<100;
 }
 $("wheelSpin").onclick=spinWheel; $("wheelClose").onclick=closeWheel;
@@ -1257,8 +1256,8 @@ if(isTouch){ const wb=$("walkBtn");
 
 /* ============================================================ */
 function init(){
-  if(!window.THREE){ $("loading").textContent="Fehler: 3D-Bibliothek (vendor/three.min.js) nicht gefunden."; return; }
-  try{ buildWorld(); }catch(err){ $("loading").textContent="3D-Fehler: "+err.message; console.error(err); return; }
+  if(!window.THREE){ $("loading").textContent="Error: 3D library (vendor/three.min.js) not found."; return; }
+  try{ buildWorld(); }catch(err){ $("loading").textContent="3D error: "+err.message; console.error(err); return; }
   renderDiffPick(); $("diffTag").textContent=DIFF[difficulty].label;
   $("progress").textContent="0/"+NPCS.length; updateStreak(); updateHint();
   $("loading").style.display="none";
